@@ -1,0 +1,29 @@
+services:
+  balanser:
+    image: nginx:1.26.0
+    ports:
+      - 80:80
+    volumes:
+      - ./balancer.conf:/etc/nginx/conf.d/default.conf
+    container_name: balancer
+    
+  first:
+    image: nginx:1.26.0
+    container_name: first
+    volumes:
+      - ./resp1.html:/usr/share/nginx/html/index.html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+
+  second:
+    image: nginx:1.26.0
+    container_name: second
+    volumes:
+      - ./resp2.html:/usr/share/nginx/html/index.html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      
+  third:
+    image: nginx:1.26.0
+    container_name: third
+    volumes:
+      - ./resp3.html:/usr/share/nginx/html/index.html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
